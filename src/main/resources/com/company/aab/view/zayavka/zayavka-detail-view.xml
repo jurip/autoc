@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://zayavkaDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="zayavkaDc"
+                  class="com.company.aab.entity.Zayavka">
+            <fetchPlan extends="_base">
+                <property name="avomobili" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="zayavkaDl"/>
+            <collection id="avomobiliDc" property="avomobili"/>
+        </instance>
+        <instance id="newAvtoDc" class="com.company.aab.entity.Avtomobil"/>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="zayavkaDc">
+            <textField id="nomerField" property="nomer"/>
+            <dateTimePicker id="nachaloField" property="nachalo"/>
+            <textField id="klientField" property="klient"/>
+            <textField id="adresField" property="adres"/>
+            <textField id="kommentarijField" property="kommentarij"/>
+            <textField id="statusField" property="status"/>
+        </formLayout>
+        <formLayout id="newAvtoForm" dataContainer="newAvtoDc">
+            <textField id="avtoNomerField" property="nomer"/>
+            <textField id="markaField" property="marka"/>
+        </formLayout>
+        <hbox>
+            <button action="avomobiliDataGrid.createAvto"/>
+            <button action="avomobiliDataGrid.edit"/>
+            <button action="avomobiliDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="avomobiliDataGrid" dataContainer="avomobiliDc" width="100%" minHeight="20em">
+            <columns>
+                <column property="nomer"/>
+                <column property="marka"/>
+            </columns>
+            <actions>
+                <action id="createAvto" />
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
